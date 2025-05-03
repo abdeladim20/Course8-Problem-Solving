@@ -3,5 +3,11 @@
 *.out
 *.o
 
+# Ignore executables (no extension) starting with Problem
+Problem*
+
+# But keep .cpp files starting with Problem
+!Problem*.cpp
+
 # IDE-specific files
 .vscode/
