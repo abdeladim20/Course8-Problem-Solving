@@ -1,10 +1,18 @@
 #include <iostream>
 using namespace std;
 
+struct sDate
+{
+    short Year;
+    short Month;
+    short Day;
+};
+
 bool isLeapYear(short Year)
 {
     return (Year % 4 == 0 && Year % 100 != 0) || (Year % 400 == 0);
 }
+
 short NumberOfDaysInAMonth(short Month, short Year)
 {
     if (Month < 1 || Month > 12)
@@ -12,6 +20,7 @@ short NumberOfDaysInAMonth(short Month, short Year)
     int days[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     return (Month == 2) ? (isLeapYear(Year) ? 29 : 28) : days[Month - 1];
 }
+
 short NumberOfDaysFromTheBeginingOfTheYear(short Day, short Month, short Year)
 {
     short TotalDays = 0;
@@ -22,27 +31,24 @@ short NumberOfDaysFromTheBeginingOfTheYear(short Day, short Month, short Year)
     TotalDays += Day;
     return TotalDays;
 }
-struct sDate
-{
-    short Year;
-    short Month;
-    short Day;
-};
 
-sDate GetDateFromDayOrderInYear(short DateOrderInYear, short Year)
+sDate DateAddDays(short Days, sDate Date)
 {
-    sDate Date;
-    short RemainingDays = DateOrderInYear;
+    short RemainingDays = Days + NumberOfDaysFromTheBeginingOfTheYear(Date.Day, Date.Month, Date.Year);
     short MonthDays = 0;
-    Date.Year = Year;
     Date.Month = 1;
     while (true)
     {
-        MonthDays = NumberOfDaysInAMonth(Date.Month, Year);
+        MonthDays = NumberOfDaysInAMonth(Date.Month, Date.Year);
         if (RemainingDays > MonthDays)
         {
             RemainingDays -= MonthDays;
             Date.Month++;
+            if (Date.Month > 12)
+            {
+                Date.Month = 1;
+                Date.Year++;
+            }
         }
         else
         {
@@ -52,6 +58,7 @@ sDate GetDateFromDayOrderInYear(short DateOrderInYear, short Year)
     }
     return Date;
 }
+
 short ReadDay()
 {
     short Day;
@@ -59,6 +66,7 @@ short ReadDay()
     cin >> Day;
     return Day;
 }
+
 short ReadMonth()
 {
     short Month;
@@ -74,17 +82,30 @@ short ReadYear()
     cin >> Year;
     return Year;
 }
+
+sDate ReadFullDate()
+{
+    sDate Date;
+    Date.Day = ReadDay();
+    Date.Month = ReadMonth();
+    Date.Year = ReadYear();
+    return Date;
+}
+
+short ReadDaysToAdd()
+{
+    short Days;
+    cout << "\nHow many days to add? ";
+    cin >> Days;
+    return Days;
+}
+
 int main()
 {
-    short Day = ReadDay();
-    short Month = ReadMonth();
-    short Year = ReadYear();
-    short DaysOrderInYear = NumberOfDaysFromTheBeginingOfTheYear(Day, Month, Year);
-    cout << "\nNumber of Days from the begining of the year is "
-         << DaysOrderInYear << "\n\n";
-    sDate Date;
-    Date = GetDateFromDayOrderInYear(DaysOrderInYear, Year);
-    cout << "Date for [" << DaysOrderInYear << "] is: ";
-    cout << Date.Day << "/" << Date.Month << "/" << Date.Year << endl;
+    sDate Date = ReadFullDate();
+    short Days = ReadDaysToAdd();
+    Date = DateAddDays(Days, Date);
+    cout << "\nDate after adding [" << Days << "] days is: ";
+    cout << Date.Day << "/" << Date.Month << "/" << Date.Year;
     return 0;
 }
