@@ -65,18 +65,38 @@ bool isLastMonth(sDate Date)
     return 12 == Date.Month;
 }
 
+sDate IncreaseDateByOneDay(sDate Date)
+{
+
+    if (isLastMonth(Date))
+    {
+        if (isLastDay(Date))
+        {
+            Date.Day = 1;
+            Date.Month = 1;
+            Date.Year++;
+        }
+        else
+            Date.Day++;
+    }
+    else
+    {
+        if (isLastDay(Date))
+        {
+            Date.Day = 1;
+            Date.Month++;
+        }
+        else
+            Date.Day++;
+    }
+    return Date;
+}
+
 int main()
 {
     sDate Date = ReadFullDate();
-    if (isLastDay(Date))
-        cout << "Yes, Day is last day in month\n";
-    else
-        cout << "No, Day is not last day in month\n";
-
-    if (isLastMonth(Date))
-        cout << "Yes, Month is last Month in year\n";
-    else
-        cout << "No, Month is not last Month in year\n";
+    Date = IncreaseDateByOneDay(Date);
+    cout << "Date after adding one day is: " << Date.Day << "/" << Date.Month << "/" << Date.Year << endl;
 
     return 0;
 }
