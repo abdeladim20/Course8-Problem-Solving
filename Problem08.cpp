@@ -19,8 +19,7 @@ short DayOfWeekOrder(short Day, short Month, short Year)
 
 string DayShortName(short DayOfWeekOrder)
 {
-    string arrDayNames[] = {
-        "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+    string arrDayNames[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
     return arrDayNames[DayOfWeekOrder];
 }
 

@@ -21,21 +21,11 @@ short NumberOfDaysInAMonth(short Month, short Year)
     return (Month == 2) ? (isLeapYear(Year) ? 29 : 28) : days[Month - 1];
 }
 
-bool IsFirstDayInMonth(stDate Date)
-{
-    return (Date.Day == 1);
-}
-
-bool IsFirstMonthInYear(short Month)
-{
-    return (Month == 1);
-}
-
 stDate DecreaseDateByOneDay(stDate Date)
 {
-    if (IsFirstDayInMonth(Date))
+    if (Date.Day == 1)
     {
-        if (IsFirstMonthInYear(Date.Month))
+        if (Date.Month == 1)
         {
             Date.Month = 12;
             Date.Day = 31;
@@ -53,6 +43,7 @@ stDate DecreaseDateByOneDay(stDate Date)
     }
     return Date;
 }
+
 stDate DecreaseDateByOneWeek(stDate Date)
 {
     for (int i = 1; i <= 7; i++)
@@ -61,6 +52,7 @@ stDate DecreaseDateByOneWeek(stDate Date)
     }
     return Date;
 }
+
 stDate DecreaseDateByXWeeks(short Weeks, stDate Date)
 {
     for (short i = 1; i <= Weeks; i++)
