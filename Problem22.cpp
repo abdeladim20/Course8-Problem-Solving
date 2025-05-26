@@ -125,36 +125,6 @@ short DaysUntilTheEndOfYear(stDate Date1)
     return GetDifferenceInDays(Date1, EndOfYearDate, true);
 }
 
-short ReadDay()
-{
-    short Day;
-    cout << "\nPlease enter a Day? ";
-    cin >> Day;
-    return Day;
-}
-short ReadMonth()
-{
-    short Month;
-    cout << "Please enter a Month? ";
-    cin >> Month;
-    return Month;
-}
-short ReadYear()
-{
-    short Year;
-    cout << "Please enter a Year? ";
-    cin >> Year;
-    return Year;
-}
-stDate ReadFullDate()
-{
-    stDate Date;
-    Date.Day = ReadDay();
-    Date.Month = ReadMonth();
-    Date.Year = ReadYear();
-    return Date;
-}
-
 stDate GetSystemDate()
 {
     stDate Date;
