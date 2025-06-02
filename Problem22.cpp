@@ -54,6 +54,7 @@ stDate IncreaseDateByOneDay(stDate Date)
     }
     return Date;
 }
+
 int GetDifferenceInDays(stDate Date1, stDate Date2, bool IncludeEndDay = false)
 {
     int Days = 0;
