@@ -36,19 +36,20 @@ vector<string> SplitString(string S1, string Delim)
 {
     vector<string> vString;
     short pos = 0;
-    string sWord; // define a string variable  // use find() function to get the position of the delimiters
-    while ((pos = S1.find(Delim)) != std::string::npos)
+    string sWord; 
+    
+    while ((pos = S1.find(Delim)) != string::npos)
     {
-        sWord = S1.substr(0, pos); // store the word
+        sWord = S1.substr(0, pos);
         if (sWord != "")
         {
             vString.push_back(sWord);
         }
-        S1.erase(0, pos + Delim.length()); /* erase() until positon and move to next word. */
+        S1.erase(0, pos + Delim.length());
     }
     if (S1 != "")
     {
-        vString.push_back(S1); // it adds last word of the string.
+        vString.push_back(S1);
     }
     return vString;
 }
@@ -61,7 +62,7 @@ sClient ConvertLinetoRecord(string Line, string Seperator = "#//#")
     Client.PinCode = vClientData[1];
     Client.Name = vClientData[2];
     Client.Phone = vClientData[3];
-    Client.AccountBalance = stod(vClientData[4]); // cast string to double
+    Client.AccountBalance = stod(vClientData[4]);
     return Client;
 }
 string ConvertRecordToLine(sClient Client, string Seperator = "#//#")
@@ -78,7 +79,7 @@ vector<sClient> LoadCleintsDataFromFile(string FileName)
 {
     vector<sClient> vClients;
     fstream MyFile;
-    MyFile.open(FileName, ios::in); // read Mode
+    MyFile.open(FileName, ios::in);
     if (MyFile.is_open())
     {
         string Line;
@@ -108,7 +109,7 @@ bool FindClientByAccountNumberAndPinCode(string AccountNumber, string PinCode, s
 vector<sClient> SaveCleintsDataToFile(string FileName, vector<sClient> vClients)
 {
     fstream MyFile;
-    MyFile.open(FileName, ios::out); // overwrite
+    MyFile.open(FileName, ios::out);
     string DataLine;
     if (MyFile.is_open())
     {
@@ -138,7 +139,7 @@ bool DepositBalanceToClientByAccountNumber(string AccountNumber, double Amount, 
             {
                 C.AccountBalance += Amount;
                 SaveCleintsDataToFile(ClientsFileName, vClients);
-                cout << "\n\nDone Successfully. New balance is: " << C.AccountBalance;
+                cout << "\n\nDone Successfully. New balance is: " << C.AccountBalance << endl;
                 return true;
             }
         }
@@ -186,8 +187,8 @@ void PerfromQuickWithdrawOption(short QuickWithDrawOption)
     short WithDrawBalance = getQuickWithDrawAmount(QuickWithDrawOption);
     if (WithDrawBalance > CurrentClient.AccountBalance)
     {
-        cout << "\nThe amount exceeds your balance, make another choice.\n";
-        cout << "Press Anykey to continue...";
+        cout << "\nThe amount exceeds your balance, make another choice.\n" << endl;
+        // cout << "Press Anykey to continue...";
         system("read -p 'Press Enter to continue...' var");
 
         ShowQuickWithdrawScreen();
@@ -250,8 +251,8 @@ void PerfromNormalWithdrawOption()
     int WithDrawBalance = ReadWithDrawAmont();
     if (WithDrawBalance > CurrentClient.AccountBalance)
     {
-        cout << "\nThe amount exceeds your balance, make another choice.\n";
-        cout << "Press Anykey to continue...";
+        cout << "\nThe amount exceeds your balance, make another choice.\n" << endl;
+        // cout << "Press Anykey to continue...";
         system("read -p 'Press Enter to continue...' var");
 
         ShowNormalWithDrawScreen();
@@ -286,9 +287,10 @@ void ShowQuickWithdrawScreen()
 }
 void GoBackToMainMenue()
 {
-    // cout << "\n\nPress any key to go back to Main Menue...";
+    // cout << "\n\nPress any key to go back to Main Menue..." << endl;
     system("read -p 'Press Enter to continue...' var");
-
+    cout << endl;
+    // system("clear");
     ShowMainMenue();
 }
 short ReadMainMenueOption()
@@ -377,6 +379,6 @@ void Login()
 int main()
 {
     Login();
-    system("read -p 'Press Enter to continue...' var");
+    // system("read -p 'Press Enter to continue...' var");
     return 0;
 }
